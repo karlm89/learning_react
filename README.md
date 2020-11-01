@@ -1,6 +1,6 @@
 # Learning React
 
-These are notes from the Crash Course. This is just the basics : no state manager, or hooks.
+These are notes from the [React Crash Course](https://www.youtube.com/watch?v=sBws8MSXN7A&amp;t=510s). This is just the basics : no state manager, or hooks.
 
 ## Installing React
 
