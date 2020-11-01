@@ -2,8 +2,6 @@
 
 These are notes from the Crash Course. This is just the basics : no state manager, or hooks.
 
-[toc]
-
 ## Installing React
 
 `> npx create-react-app [app-name]`
