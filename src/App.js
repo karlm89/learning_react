@@ -1,33 +1,26 @@
-// src/App.js
 import React, { Component } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import axios from 'axios'
+// import { v4 as uuidv4 } from 'uuid'
+
 import Header from './components/layouts/Header'
 import Todos from './components/Todos'
 import AddTodo from './components/AddTodo'
-
+import About from './components/pages/About'
 import './App.css'
 
 class App extends Component {
   // Define the app level state object
   state = {
-    // define todos as an array of objects
-    todos: [
-      {
-        id: uuidv4(),
-        title: 'Take out the trash',
-        completed: false,
-      },
-      {
-        id: uuidv4(),
-        title: 'Dinner with Wife',
-        completed: false,
-      },
-      {
-        id: uuidv4(),
-        title: 'Meeting with Boss',
-        completed: false,
-      },
-    ],
+    // You can define todos as an array of objects
+    todos: [],
+  }
+
+  componentDidMount() {
+    axios
+      // Query jsonplaceholder with a limit of 10 todos for our array
+      .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+      .then((res) => this.setState({ todos: res.data }))
   }
 
   // Toggles todo onChange
@@ -44,36 +37,52 @@ class App extends Component {
 
   // Add todo to State
   addTodo = (title) => {
-    const newTodo = {
-      id: uuidv4(),
-      title,
-      completed: false,
-    }
-    this.setState({ todos: [...this.state.todos, newTodo] })
+    axios
+      .post('https://jsonplaceholder.typicode.com/todos', {
+        title,
+        completed: false,
+      })
+      .then((res) => this.setState({ todos: [...this.state.todos, res.data] }))
   }
-  
+
   // Delete todo from State
   delTodo = (id) => {
-    this.setState({
-      todos: [...this.state.todos.filter((todo) => todo.id !== id)],
-    })
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then((res) =>
+        this.setState({
+          todos: [...this.state.todos.filter((todo) => todo.id !== id)],
+        })
+      )
   }
 
   // render the component
   render() {
     // return JSX
     return (
-      <div className="App">
-        <Header />
-        <div class="container">
-          <AddTodo addTodo={this.addTodo} />
-          <Todos
-            todos={this.state.todos}
-            markComplete={this.markComplete}
-            delTodo={this.delTodo}
-          />
+      <Router>
+        <div className="App">
+          <Header />
+          <div class="container">
+            {/* Match Route Exactly : without this, React will assume you want everything rendered in / all on other views */}
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <React.Fragment>
+                  <AddTodo addTodo={this.addTodo} />
+                  <Todos
+                    todos={this.state.todos}
+                    markComplete={this.markComplete}
+                    delTodo={this.delTodo}
+                  />
+                </React.Fragment>
+              )}
+            />
+            <Route path="/about" component={About} />
+          </div>
         </div>
-      </div>
+      </Router>
     )
   }
 }

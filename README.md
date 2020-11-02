@@ -9,9 +9,10 @@ These are notes from the [React Crash Course](https://www.youtube.com/watch?v=sB
 ## Packages Used
 
 UUID - Used for generating IDs
-
 `> npm i uuid`
 
 React Router - Router for React
-
 `> npm i react-router-dom`
+
+Axios - Used for making HTTP requests
+`> npm i axios`

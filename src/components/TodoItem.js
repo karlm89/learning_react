@@ -39,6 +39,8 @@ class TodoItem extends Component {
 TodoItem.propTypes = {
   // [Name of the prop]: PropTypes.[Type of Prop].isRequired
   todo: PropTypes.object.isRequired,
+  delTodo: PropTypes.func.isRequired,
+  markComplete: PropTypes.func.isRequired,
 }
 
 // Vars / Styles
