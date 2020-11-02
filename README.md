@@ -6,6 +6,12 @@ These are notes from the [React Crash Course](https://www.youtube.com/watch?v=sB
 
 `> npx create-react-app [app-name]`
 
+## Build / Deploy React
+
+`> npm run build`
+
+The 'build' folder would become the 'public' folder on the server.
+
 ## Packages Used
 
 UUID - Used for generating IDs
